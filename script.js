@@ -1,13 +1,20 @@
 const width = 600;
 const height = 600;
+const ctx = canvas.getContext('2d');
+const blockSize = 30;
+let keys = [];
+let player = {
+  x: 8,
+  y: 1,
+};
+const wall = new Image();
+wall.src = 'images/wall.png';
+
+const hero = new Image();
+hero.src = 'images/down.png';
 
 canvas.width = width;
 canvas.height = height;
-
-const ctx = canvas.getContext('2d');
-const blockSize = 30;
-
-let keys = [];
 
 const board = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -32,9 +39,6 @@ const board = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
 
-const wall = new Image();
-wall.src = 'images/wall.png';
-
 const generateBoard = () => {
   for (let y = 0; y < board.length; y++) {
     for (let x = 0; x < board[y].length; x++) {
@@ -45,17 +49,43 @@ const generateBoard = () => {
   }
 };
 
-window.addEventListener('load', generateBoard);
-
-let player = {
-  x: 8,
-  y: 1,
+const canMove = (x, y) => {
+  return (
+    y >= 0 &&
+    y < board.length &&
+    x >= 0 &&
+    x < board[y].length &&
+    board[y][x] != 1
+  );
 };
 
-const hero = new Image();
-hero.src = 'images/down.png';
+const movement = (e) => {
+  if (keys[e.code === 'arrowRight'] && canMove(player.x + 1, player.y)) {
+    // šipka doprava
+    hero.src = 'images/right.png';
+    player.x++;
+  }
 
-const draw = () => {
+  if (keys[e.code === 'arrowLeft'] && canMove(player.x - 1, player.y)) {
+    // šipka doleva
+    hero.src = 'images/left.png';
+    player.x--;
+  }
+
+  if (keys[e.code === 'arrowUp'] && canMove(player.x, player.y - 1)) {
+    // šipka nahoru
+    hero.src = 'images/up.png';
+    player.y--;
+  }
+
+  if (keys[e.code === 'arrowDown'] && canMove(player.x, player.y + 1)) {
+    // šipka dolů
+    hero.src = 'images/down.png';
+    player.y++;
+  }
+};
+
+const draw = (e) => {
   ctx.clearRect(
     player.x * blockSize,
     player.y * blockSize,
@@ -63,6 +93,7 @@ const draw = () => {
     blockSize,
   );
   generateBoard();
+  movement(e);
   ctx.drawImage(
     hero,
     player.x * blockSize,
@@ -85,29 +116,3 @@ document.body.addEventListener('keyup', (e) => {
 
   draw();
 });
-
-const movement = () => {
-  if (keys[39]) {
-    // šipka doprava
-    hero.src = 'images/right.png';
-    player.x++;
-  }
-
-  if (keys[37]) {
-    // šipka doleva
-    hero.src = 'images/left.png';
-    player.x--;
-  }
-
-  if (keys[38]) {
-    // šipka nahoru
-    hero.src = 'images/up.png';
-    player.y--;
-  }
-
-  if (keys[40]) {
-    // šipka dolů
-    hero.src = 'images/down.png';
-    player.y++;
-  }
-};
