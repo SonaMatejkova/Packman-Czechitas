@@ -14,4 +14,23 @@
 
 body {
   background-image: url('images/outside.png');
+  font-family: 'Bitter', serif;
+  font-weight: 700;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 600px;
+  margin: 20px auto 10px auto;
+}
+
+header img {
+  margin-right: 10px;
+}
+
+#score,
+#time {
+  font-size: 20px;
 }
