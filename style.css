@@ -1,0 +1,17 @@
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+
+#canvas {
+  background-image: url('images/inside.png');
+}
+
+#game {
+  text-align: center;
+}
+
+body {
+  background-image: url('images/outside.png');
+}
