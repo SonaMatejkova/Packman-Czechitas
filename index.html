@@ -14,13 +14,19 @@
     <header>
       <div>
         <img src="images/score.png" alt="score" />
-        <span id="score">0/6</span>
+        <span id="score">0/7</span>
       </div>
 
       <div id="time">00:00</div>
     </header>
+
     <div id="game">
       <canvas id="canvas"></canvas>
+    </div>
+
+    <div id="end">
+      <p id="message"></p>
+      <button onClick="location.reload()">Hrát znovu</button>
     </div>
     <script src="script.js"></script>
   </body>
